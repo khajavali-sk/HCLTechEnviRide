@@ -15,8 +15,8 @@ class History {
 
     constructor()
     @RequiresApi(Build.VERSION_CODES.O)
-    constructor(date_time: String?, cycleID: String) {
-        this.date_time = date_time
+    constructor(cycleID: String) {
+        this.date_time = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
         this.cycleID = cycleID
     }
 
