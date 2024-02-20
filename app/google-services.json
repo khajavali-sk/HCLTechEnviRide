@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "406087660797",
+    "project_id": "hcltech-enviride",
+    "storage_bucket": "hcltech-enviride.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406087660797:android:212809122844f19c113a94",
+        "android_client_info": {
+          "package_name": "com.example.hcltechenviride"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUD11z_R2YvdMW79BuO1NG2CzVNVz_X5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
