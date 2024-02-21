@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.example.hcltechenviride.Models.History
 import com.example.hcltechenviride.databinding.FragmentEmpHomeBinding
 import com.example.hcltechenviride.utils.HISTORY_FOLDER
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
@@ -20,15 +21,27 @@ import com.google.zxing.integration.android.IntentIntegrator
 class EmpHomeFragment : Fragment() {
     private lateinit var binding: FragmentEmpHomeBinding
 
+    private var cycleCount = 0
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEmpHomeBinding.inflate(inflater, container, false)
 
         binding.scan.setOnClickListener {
-            startQrCodeScanner()
+            if (cycleCount < 1) {
+
+                startQrCodeScanner()
+            } else {
+                Toast.makeText(
+                    requireActivity(), "can only request one cycle at a time", Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        binding.returnBack.setOnClickListener {
+            cycleCount = 0
+            Toast.makeText(requireActivity(),"returned successfully",Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
@@ -51,7 +64,8 @@ class EmpHomeFragment : Fragment() {
             if (result.contents == null) {
                 // Scan cancelled or failed
                 Log.d("EmpHomeFragment", "Scan cancelled or failed")
-                Toast.makeText(requireActivity(), "Scan cancelled or failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "Scan cancelled or failed", Toast.LENGTH_SHORT)
+                    .show()
             } else {
                 // QR code scanned successfully
                 val scannedCycleId = result.contents
@@ -61,29 +75,29 @@ class EmpHomeFragment : Fragment() {
                 val history = History(cycleID = scannedCycleId)
 
                 // Update history on Firestore
-                Firebase.firestore.collection(HISTORY_FOLDER).add(history)
-                    .addOnSuccessListener {
-                        Toast.makeText(
-                            requireActivity(),
-                            "Cycle allocated successfully",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    .addOnFailureListener {
-                        Log.e(
-                            "EmpHomeFragment",
-                            "Error adding history: ${it.localizedMessage}"
-                        )
-                        Toast.makeText(
-                            requireActivity(),
-                            "Failed to allocate cycle: ${it.localizedMessage}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                Firebase.firestore.collection(HISTORY_FOLDER).add(history).addOnSuccessListener {
+                    Firebase.firestore.collection(Firebase.auth.currentUser!!.uid)
+                        .document().set(history)
+                    //increament cycleCount
+                    cycleCount = 1
+                    Toast.makeText(
+                        requireActivity(), "Cycle allocated successfully", Toast.LENGTH_SHORT
+                    ).show()
+                }.addOnFailureListener {
+                    Log.e(
+                        "EmpHomeFragment", "Error adding history: ${it.localizedMessage}"
+                    )
+                    Toast.makeText(
+                        requireActivity(),
+                        "Failed to allocate cycle: ${it.localizedMessage}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         } else {
             Log.e("EmpHomeFragment", "Failed to parse activity result")
-            Toast.makeText(requireActivity(), "Failed to parse activity result", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), "Failed to parse activity result", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 }
