@@ -1,11 +1,11 @@
 package com.example.hcltechenviride
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
-import android.view.LayoutInflater
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.hcltechenviride.Models.User
 import com.example.hcltechenviride.databinding.ActivitySignUpBinding
 import com.example.hcltechenviride.utils.EMP_USER_NODE
@@ -29,11 +29,22 @@ class SignUpActivity : AppCompatActivity() {
         binding.toLogin.setText(Html.fromHtml(text))
         user = User()
 
+        // Initialize the Spinner with user roles
+        val spinnerUserRole = binding.userRole
+        val roles = listOf("Employee", "Security")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, roles)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerUserRole.adapter = adapter
+
         binding.registerBtn.setOnClickListener {
-            if (binding.name.editText?.text.toString().equals("") or
-                binding.id.editText?.text.toString().equals("") or
-                binding.email.editText?.text.toString().equals("") or
-                binding.password.editText?.text.toString().equals("")
+            // Retrieve selected role from Spinner
+            val selectedRole = spinnerUserRole.selectedItem.toString()
+
+            // Check if all fields are filled
+            if (binding.name.editText?.text.toString().isEmpty() ||
+                binding.id.editText?.text.toString().isEmpty() ||
+                binding.email.editText?.text.toString().isEmpty() ||
+                binding.password.editText?.text.toString().isEmpty()
             ) {
                 Toast.makeText(
                     this@SignUpActivity,
@@ -41,6 +52,7 @@ class SignUpActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
+                // Create user in Firebase Authentication
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(
                     binding.email.editText?.text.toString(),
                     binding.password.editText?.text.toString()
@@ -50,14 +62,16 @@ class SignUpActivity : AppCompatActivity() {
                         user.employeeId = binding.id.editText?.text.toString()
                         user.email = binding.email.editText?.text.toString()
                         user.password = binding.password.editText?.text.toString()
+                        user.role = selectedRole  // Store selected role
+
+                        // Insert user details into Firestore
                         Firebase.firestore.collection(EMP_USER_NODE)
                             .document(Firebase.auth.currentUser!!.uid).set(user)
                             .addOnSuccessListener {
-
                                 startActivity(
                                     Intent(
                                         this@SignUpActivity,
-                                        EmpHomeActivity::class.java
+                                        EmpLoginActivity::class.java
                                     )
                                 )
                                 finish()
@@ -79,6 +93,7 @@ class SignUpActivity : AppCompatActivity() {
         }
         binding.toLogin.setOnClickListener {
             startActivity(Intent(this@SignUpActivity, EmpLoginActivity::class.java))
+
             finish()
         }
     }

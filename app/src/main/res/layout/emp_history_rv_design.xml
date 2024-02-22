@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="5dp"
     android:paddingBottom="5dp">
+
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/cycleLogo"
@@ -20,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/id"
+        android:id="@+id/cycleID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -37,6 +38,6 @@
         android:layout_height="wrap_content"
         android:text="DD Month 00:00 am"
         app:layout_constraintBottom_toBottomOf="@+id/cycleLogo"
-        app:layout_constraintStart_toStartOf="@+id/id"
-        app:layout_constraintTop_toBottomOf="@+id/id" />
+        app:layout_constraintStart_toStartOf="@+id/cycleID"
+        app:layout_constraintTop_toBottomOf="@+id/cycleID" />
 </androidx.constraintlayout.widget.ConstraintLayout>

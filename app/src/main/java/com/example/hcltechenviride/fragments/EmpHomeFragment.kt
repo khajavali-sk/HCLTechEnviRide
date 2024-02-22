@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.example.hcltechenviride.Models.History
+import com.example.hcltechenviride.Models.CurrentCycle
 import com.example.hcltechenviride.databinding.FragmentEmpHomeBinding
-import com.example.hcltechenviride.utils.HISTORY_FOLDER
+import com.example.hcltechenviride.utils.CURRENT_CYCLE_FOLDER
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -33,6 +33,7 @@ class EmpHomeFragment : Fragment() {
             if (cycleCount < 1) {
 
                 startQrCodeScanner()
+                cycleCount = 1
             } else {
                 Toast.makeText(
                     requireActivity(), "can only request one cycle at a time", Toast.LENGTH_SHORT
@@ -72,21 +73,33 @@ class EmpHomeFragment : Fragment() {
                 Log.d("EmpHomeFragment", "Scanned cycle ID: $scannedCycleId")
 
                 // Create history object with scanned ID (modify if needed)
-                val history = History(cycleID = scannedCycleId)
+                val currentCycle = CurrentCycle(cycleID = scannedCycleId)
 
                 // Update history on Firestore
-                Firebase.firestore.collection(HISTORY_FOLDER).add(history).addOnSuccessListener {
+                Firebase.firestore.collection(CURRENT_CYCLE_FOLDER).add(currentCycle).addOnSuccessListener {
                     Firebase.firestore.collection(Firebase.auth.currentUser!!.uid)
-                        .document().set(history)
+                        .document().set(currentCycle).addOnSuccessListener {
+
+                            Toast.makeText(
+                                requireActivity(), "Cycle allocated successfully", Toast.LENGTH_SHORT
+                            ).show()
+                        }.addOnFailureListener {
+                        Log.e(
+                            "EmpHomeFragment", "Error adding history: ${it.localizedMessage}"
+                        )
+                        cycleCount = 0
+                        Toast.makeText(
+                            requireActivity(),
+                            "Failed to allocate cycle: ${it.localizedMessage}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     //increament cycleCount
-                    cycleCount = 1
-                    Toast.makeText(
-                        requireActivity(), "Cycle allocated successfully", Toast.LENGTH_SHORT
-                    ).show()
                 }.addOnFailureListener {
                     Log.e(
                         "EmpHomeFragment", "Error adding history: ${it.localizedMessage}"
                     )
+                    cycleCount = 0
                     Toast.makeText(
                         requireActivity(),
                         "Failed to allocate cycle: ${it.localizedMessage}",
@@ -95,6 +108,7 @@ class EmpHomeFragment : Fragment() {
                 }
             }
         } else {
+            cycleCount = 0
             Log.e("EmpHomeFragment", "Failed to parse activity result")
             Toast.makeText(requireActivity(), "Failed to parse activity result", Toast.LENGTH_SHORT)
                 .show()

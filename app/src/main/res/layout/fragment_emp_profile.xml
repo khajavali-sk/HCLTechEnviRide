@@ -22,11 +22,11 @@
             app:titleTextColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
+            app:layout_constraintTop_toTopOf="parent"/>
 
 
 
-        </com.google.android.material.appbar.MaterialToolbar>
+
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -76,6 +76,31 @@
             app:layout_constraintStart_toEndOf="@+id/idLogo"
             app:layout_constraintTop_toTopOf="@+id/idLogo" />
 
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_role"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/user_role"
+            app:civ_border_color="#FF000000"
+            app:layout_constraintEnd_toEndOf="@+id/idLogo"
+            app:layout_constraintStart_toStartOf="@+id/idLogo"
+            app:layout_constraintTop_toBottomOf="@+id/idLogo" />
+
+
+        <TextView
+            android:id="@+id/role"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="18sp"
+            android:text="Employee Role"
+            app:layout_constraintBottom_toBottomOf="@+id/user_role"
+            app:layout_constraintStart_toEndOf="@+id/user_role"
+            app:layout_constraintTop_toTopOf="@+id/user_role" />
+
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/atLogo"
             android:layout_width="40dp"
@@ -83,9 +108,9 @@
             android:layout_marginTop="32dp"
             android:src="@drawable/at"
             app:civ_border_color="#FF000000"
-            app:layout_constraintEnd_toEndOf="@+id/idLogo"
-            app:layout_constraintStart_toStartOf="@+id/idLogo"
-            app:layout_constraintTop_toBottomOf="@+id/idLogo" />
+            app:layout_constraintEnd_toEndOf="@+id/user_role"
+            app:layout_constraintStart_toStartOf="@+id/user_role"
+            app:layout_constraintTop_toBottomOf="@+id/user_role" />
 
 
         <TextView
@@ -123,8 +148,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/logout_logo"
             app:layout_constraintStart_toEndOf="@+id/logout_logo"
             app:layout_constraintTop_toTopOf="@+id/logout_logo" />
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

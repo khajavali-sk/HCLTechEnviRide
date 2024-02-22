@@ -7,6 +7,7 @@
     android:backgroundTint="#0B27D8"
     tools:context=".SignUpActivity">
 
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/enviRide_logo"
         android:layout_width="150dp"
@@ -19,8 +20,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.139" />
-
+        app:layout_constraintVertical_bias="0.103" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name"
@@ -43,7 +43,7 @@
         android:id="@+id/id"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:hint="Employee ID"
         app:layout_constraintEnd_toEndOf="@+id/name"
         app:layout_constraintHorizontal_bias="0.0"
@@ -59,7 +59,7 @@
         android:id="@+id/email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:hint="Email"
         app:layout_constraintEnd_toEndOf="@+id/id"
         app:layout_constraintStart_toStartOf="@+id/id"
@@ -76,13 +76,12 @@
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:hint="Password"
         app:endIconMode="password_toggle"
-        app:layout_constraintEnd_toEndOf="@+id/email"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/email"
-        app:layout_constraintTop_toBottomOf="@+id/email">
+        app:layout_constraintEnd_toEndOf="@+id/userRole"
+        app:layout_constraintStart_toStartOf="@+id/userRole"
+        app:layout_constraintTop_toBottomOf="@+id/userRole">
 
         <com.google.android.material.textfield.TextInputEditText
 
@@ -116,6 +115,18 @@
         app:layout_constraintEnd_toEndOf="@+id/registerBtn"
         app:layout_constraintStart_toStartOf="@+id/registerBtn"
         app:layout_constraintTop_toBottomOf="@+id/registerBtn" />
+
+    <Spinner
+        android:id="@+id/userRole"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/email"
+        app:layout_constraintStart_toStartOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/email"
+
+        android:backgroundTintMode="screen"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

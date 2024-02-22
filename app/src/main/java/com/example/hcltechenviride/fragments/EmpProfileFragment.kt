@@ -60,6 +60,7 @@ class EmpProfileFragment : Fragment() {
                 binding.name.text = user.name
                 binding.id.text = user.employeeId
                 binding.email.text = user.email
+                binding.role.text = user.role
             }
     }
 

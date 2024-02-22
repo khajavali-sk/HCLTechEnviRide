@@ -7,6 +7,8 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -19,13 +21,9 @@
         android:theme="@style/Theme.HCLTechEnviRide"
         tools:targetApi="31">
         <activity
-            android:name=".QrScannerActivity"
+            android:name=".SecHomeActivity"
             android:exported="false"
-            android:label="@string/title_activity_qr_scanner"
-            android:theme="@style/Theme.HCLTechEnviRide" />
-        <activity
-            android:name=".utils.QrScannerActivity"
-            android:exported="false" />
+            android:label="@string/title_activity_sec_home" />
         <activity
             android:name=".EmpLoginActivity"
             android:exported="false" />
