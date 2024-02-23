@@ -42,7 +42,7 @@ class EmpHomeFragment : Fragment() {
         }
         binding.returnBack.setOnClickListener {
             cycleCount = 0
-            Toast.makeText(requireActivity(),"returned successfully",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), "returned successfully", Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
@@ -75,25 +75,28 @@ class EmpHomeFragment : Fragment() {
                 // Create history object with scanned ID (modify if needed)
                 val currentCycle = CurrentCycle(cycleID = scannedCycleId)
 
-                // Update history on Firestore
-                Firebase.firestore.collection(CURRENT_CYCLE_FOLDER).add(currentCycle).addOnSuccessListener {
+                Firebase.firestore.collectionGroup(CURRENT_CYCLE_FOLDER).firestore.collection(
+                    CURRENT_CYCLE_FOLDER
+                ).document().set(currentCycle).addOnSuccessListener {
                     Firebase.firestore.collection(Firebase.auth.currentUser!!.uid)
                         .document().set(currentCycle).addOnSuccessListener {
 
                             Toast.makeText(
-                                requireActivity(), "Cycle allocated successfully", Toast.LENGTH_SHORT
+                                requireActivity(),
+                                "Cycle allocated successfully",
+                                Toast.LENGTH_SHORT
                             ).show()
                         }.addOnFailureListener {
-                        Log.e(
-                            "EmpHomeFragment", "Error adding history: ${it.localizedMessage}"
-                        )
-                        cycleCount = 0
-                        Toast.makeText(
-                            requireActivity(),
-                            "Failed to allocate cycle: ${it.localizedMessage}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                            Log.e(
+                                "EmpHomeFragment", "Error adding history: ${it.localizedMessage}"
+                            )
+                            cycleCount = 0
+                            Toast.makeText(
+                                requireActivity(),
+                                "Failed to allocate cycle: ${it.localizedMessage}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     //increament cycleCount
                 }.addOnFailureListener {
                     Log.e(

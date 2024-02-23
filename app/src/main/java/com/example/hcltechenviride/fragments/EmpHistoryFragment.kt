@@ -30,13 +30,15 @@ class EmpHistoryFragment : Fragment() {
     ): View? {
         binding = FragmentEmpHistoryBinding.inflate(inflater, container, false)
         var historyList = ArrayList<History>()
-        var adapter = EmpHistoryRvAdapter(requireContext(),historyList)
-        binding.rv.layoutManager=StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL)
+        var adapter = EmpHistoryRvAdapter(requireContext(), historyList)
+        binding.rv.layoutManager =
+            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         binding.rv.adapter = adapter
-        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid).orderBy("date_time", Query.Direction.DESCENDING).get().addOnSuccessListener {
+        Firebase.firestore.collection(Firebase.auth.currentUser!!.uid)
+            .orderBy("allotedTime", Query.Direction.DESCENDING).get().addOnSuccessListener {
             var tempList = ArrayList<History>()
-            for (i in it.documents){
-                var history:History=i.toObject<History>()!!
+            for (i in it.documents) {
+                var history: History = i.toObject<History>()!!
                 tempList.add(history)
             }
             historyList.addAll(tempList)
@@ -48,7 +50,7 @@ class EmpHistoryFragment : Fragment() {
 
     companion object {
 
-                }
+    }
 
 
 }

@@ -50,4 +50,5 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="title_activity_sec_home">SecHomeActivity</string>
+    <string name="title_activity_admin_home">AdminHomeActivity</string>
 </resources>

@@ -10,15 +10,15 @@ class History {
     private val now = LocalDateTime.now()
     @RequiresApi(Build.VERSION_CODES.O)
 
-    var allotedTime: String? = null;
+    var allottedTime: String? = null;
     var returnTime: String? = null;
     var empID: String? = null;
     var cycleID: String? = null;
 
     constructor()
     @RequiresApi(Build.VERSION_CODES.O)
-    constructor(allotedTime: String?, returnTime: String?, empID: String?, cycleID: String?) {
-        this.allotedTime = allotedTime
+    constructor(allottedTime: String?, returnTime: String?, empID: String?, cycleID: String?) {
+        this.allottedTime = allottedTime
         this.returnTime = now.format(DateTimeFormatter.ofPattern("yy-MM-dd HH:mm"))
         this.empID = empID
         this.cycleID = cycleID
@@ -26,7 +26,13 @@ class History {
 
     @RequiresApi(Build.VERSION_CODES.O)
     constructor(cycleID: String) {
-        this.allotedTime = now.format(DateTimeFormatter.ofPattern("yy-MM-dd HH:mm"))
+        this.allottedTime = now.format(DateTimeFormatter.ofPattern("yy-MM-dd HH:mm"))
+        this.cycleID = cycleID
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    constructor(allottedTime: String?, cycleID: String?) {
+        this.allottedTime = allottedTime
         this.cycleID = cycleID
     }
 

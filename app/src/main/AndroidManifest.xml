@@ -21,6 +21,13 @@
         android:theme="@style/Theme.HCLTechEnviRide"
         tools:targetApi="31">
         <activity
+            android:name=".fragments_admin.AddCyclesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminHomeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_admin_home" />
+        <activity
             android:name=".SecHomeActivity"
             android:exported="false"
             android:label="@string/title_activity_sec_home" />

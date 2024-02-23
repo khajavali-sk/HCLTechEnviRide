@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation2"
+    app:startDestination="@id/sec_home">
+    <fragment
+        android:id="@+id/sec_home"
+        android:name="com.example.hcltechenviride.fragments_security.SecHomeFragment"
+        android:label="fragment_sec_home"
+        tools:layout="@layout/fragment_sec_home" />
+    <fragment
+        android:id="@+id/sec_history"
+        android:name="com.example.hcltechenviride.fragments_security.SecHistoryFragment"
+        android:label="fragment_sec_history"
+        tools:layout="@layout/fragment_sec_history" />
+    <fragment
+        android:id="@+id/sec_profile"
+        android:name="com.example.hcltechenviride.fragments_security.SecProfileFragment"
+        android:label="fragment_sec_profile"
+        tools:layout="@layout/fragment_sec_profile" />
+</navigation>

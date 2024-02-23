@@ -20,7 +20,7 @@ fun checkUserRoleAndOpenActivity(context: Context) {
     val userRole = getUserRole(context,"role")
 
     val intent = when (userRole) {
-        "Admin" -> Intent(context, EmpHomeActivity::class.java)
+        "Admin" -> Intent(context, AdminHomeActivity::class.java)
         "Employee" -> Intent(context, EmpHomeActivity::class.java)
         "Security" -> Intent(context, SecHomeActivity::class.java)
         else -> Intent(context, EmpLoginActivity::class.java) // Default activity for unknown role

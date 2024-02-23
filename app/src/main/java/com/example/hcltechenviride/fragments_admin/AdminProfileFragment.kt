@@ -1,4 +1,4 @@
-package com.example.hcltechenviride.fragments
+package com.example.hcltechenviride.fragments_admin
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.hcltechenviride.EmpLoginActivity
 import com.example.hcltechenviride.Models.User
-import com.example.hcltechenviride.databinding.FragmentEmpProfileBinding
+import com.example.hcltechenviride.databinding.FragmentAdminProfileBinding
 import com.example.hcltechenviride.getEncryptedSharedPreferences
 import com.example.hcltechenviride.utils.EMP_USER_NODE
 import com.google.firebase.auth.FirebaseAuth
@@ -26,14 +26,14 @@ fun clearUserRole(context: Context){
     editor.remove("role")
     editor.apply()
 }
-class EmpProfileFragment : Fragment() {
+class AdminProfileFragment : Fragment() {
 
-    private lateinit var binding: FragmentEmpProfileBinding
+    private lateinit var binding: FragmentAdminProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        }
+    }
 
 
     override fun onCreateView(
@@ -41,7 +41,7 @@ class EmpProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentEmpProfileBinding.inflate(inflater, container,false)
+        binding = FragmentAdminProfileBinding.inflate(inflater, container,false)
 
         binding.logout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
@@ -52,7 +52,7 @@ class EmpProfileFragment : Fragment() {
 
 
 
-            }
+        }
         return binding.root
 
     }

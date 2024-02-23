@@ -44,8 +44,7 @@ class SignUpActivity : AppCompatActivity() {
             if (binding.name.editText?.text.toString().isEmpty() ||
                 binding.id.editText?.text.toString().isEmpty() ||
                 binding.email.editText?.text.toString().isEmpty() ||
-                binding.password.editText?.text.toString().isEmpty()
-            ) {
+                binding.password.editText?.text.toString().isEmpty()) {
                 Toast.makeText(
                     this@SignUpActivity,
                     "Please fill all the fields",

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/admin_home"
+        android:icon="@drawable/home"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/admin_manage"
+        android:icon="@drawable/manage"
+        android:title="Manage" />
+
+    <item
+        android:id="@+id/admin_complaints"
+        android:icon="@drawable/complain"
+        android:title="Complaints" />
+
+
+
+    <item
+        android:id="@+id/admin_profile"
+        android:icon="@drawable/user"
+        android:title="Profile" />
+</menu>

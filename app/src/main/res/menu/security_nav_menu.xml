@@ -2,20 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/emp_home"
+        android:id="@+id/sec_home"
         android:icon="@drawable/home"
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/emp_history"
+        android:id="@+id/sec_history"
         android:icon="@drawable/history"
         android:title="History" />
 
     <item
-        android:id="@+id/emp_profile"
+        android:id="@+id/sec_profile"
         android:icon="@drawable/user"
         android:title="Profile" />
-
-
 
 </menu>

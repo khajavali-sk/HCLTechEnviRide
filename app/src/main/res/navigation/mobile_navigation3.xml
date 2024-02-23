@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation3"
+    app:startDestination="@id/admin_home">
+    <fragment
+        android:id="@+id/admin_home"
+        android:name="com.example.hcltechenviride.fragments_admin.AdminHomeFragment"
+        android:label="fragment_admin_home"
+        tools:layout="@layout/fragment_admin_home" />
+    <fragment
+        android:id="@+id/admin_manage"
+        android:name="com.example.hcltechenviride.fragments_admin.AdminManageFragment"
+        android:label="fragment_admin_manage"
+        tools:layout="@layout/fragment_admin_manage" />
+    <fragment
+        android:id="@+id/admin_complaints"
+        android:name="com.example.hcltechenviride.fragments_admin.AdminComplaintsFragment"
+        android:label="fragment_admin_complaints"
+        tools:layout="@layout/fragment_admin_complaints" />
+    <fragment
+        android:id="@+id/admin_profile"
+        android:name="com.example.hcltechenviride.fragments_admin.AdminProfileFragment"
+        android:label="fragment_admin_profile"
+        tools:layout="@layout/fragment_admin_profile" />
+    <fragment
+        android:id="@+id/addCycleFragment"
+        android:name="com.example.hcltechenviride.fragments_admin.AddCycleFragment"
+        android:label="fragment_add_cycle"
+        tools:layout="@layout/fragment_add_cycle" />
+</navigation>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments_admin.AdminManageFragment">
+
+
+    <Button
+        android:id="@+id/addCycleBtn"
+        style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/blue_mid"
+        android:text="Add Cycle"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+         />
+
+</FrameLayout>

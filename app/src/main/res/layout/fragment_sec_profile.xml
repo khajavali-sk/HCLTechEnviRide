@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments_security.SecProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/hcl_background"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:title="User Profile"
+            app:titleTextColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+
+
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userLogo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/user_icon"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.444"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialToolbar" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="25sp"
+            android:text="Name"
+            app:layout_constraintEnd_toEndOf="@+id/userLogo"
+            app:layout_constraintStart_toStartOf="@+id/userLogo"
+            app:layout_constraintTop_toBottomOf="@+id/userLogo" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/idLogo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="45dp"
+            android:src="@drawable/id_icon"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="18sp"
+            android:text="Employee ID"
+            app:layout_constraintBottom_toBottomOf="@+id/idLogo"
+            app:layout_constraintStart_toEndOf="@+id/idLogo"
+            app:layout_constraintTop_toTopOf="@+id/idLogo" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_role"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/user_role"
+            app:civ_border_color="#FF000000"
+            app:layout_constraintEnd_toEndOf="@+id/idLogo"
+            app:layout_constraintStart_toStartOf="@+id/idLogo"
+            app:layout_constraintTop_toBottomOf="@+id/idLogo" />
+
+
+        <TextView
+            android:id="@+id/role"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="18sp"
+            android:text="Employee Role"
+            app:layout_constraintBottom_toBottomOf="@+id/user_role"
+            app:layout_constraintStart_toEndOf="@+id/user_role"
+            app:layout_constraintTop_toTopOf="@+id/user_role" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/atLogo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/at"
+            app:civ_border_color="#FF000000"
+            app:layout_constraintEnd_toEndOf="@+id/user_role"
+            app:layout_constraintStart_toStartOf="@+id/user_role"
+            app:layout_constraintTop_toBottomOf="@+id/user_role" />
+
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="18sp"
+            android:text="Email"
+            app:layout_constraintBottom_toBottomOf="@+id/atLogo"
+            app:layout_constraintStart_toEndOf="@+id/atLogo"
+            app:layout_constraintTop_toTopOf="@+id/atLogo" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/logout_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/logout"
+            app:civ_border_color="#FF000000"
+            app:layout_constraintEnd_toEndOf="@+id/atLogo"
+            app:layout_constraintStart_toStartOf="@+id/atLogo"
+            app:layout_constraintTop_toBottomOf="@+id/atLogo" />
+
+
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="18sp"
+            android:clickable="true"
+            android:text="Logout"
+            app:layout_constraintBottom_toBottomOf="@+id/logout_logo"
+            app:layout_constraintStart_toEndOf="@+id/logout_logo"
+            app:layout_constraintTop_toTopOf="@+id/logout_logo" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>
