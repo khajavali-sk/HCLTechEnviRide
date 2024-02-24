@@ -8,7 +8,6 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hcltechenviride.Models.History
 import com.example.hcltechenviride.databinding.EmpHistoryRvDesignBinding
-import java.time.format.DateTimeFormatter
 
 class EmpHistoryRvAdapter(var context: Context, var historyList: ArrayList<History>) :
     RecyclerView.Adapter<EmpHistoryRvAdapter.ViewHolder>() {
@@ -30,6 +29,6 @@ class EmpHistoryRvAdapter(var context: Context, var historyList: ArrayList<Histo
         val historyItem = historyList[position]
         holder.binding.cycleID.text = historyItem.cycleID
         holder.binding.timeAndDate.text =
-            historyItem.allottedTime!!.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+            historyItem.duration
     }
 }

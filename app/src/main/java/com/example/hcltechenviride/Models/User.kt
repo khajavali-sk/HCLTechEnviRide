@@ -10,11 +10,13 @@ class User {
     constructor()
 
 
+    //used to initialize when logging in
     constructor(email: String?, password: String?) {
         this.email = email
         this.password = password
     }
 
+    //used to initialize during registration
     constructor(
         role: String?, name: String?, employeeId: String?, email: String?, password: String?
     ) {

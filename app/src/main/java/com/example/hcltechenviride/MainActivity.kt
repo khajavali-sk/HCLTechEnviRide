@@ -7,17 +7,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.example.hcltechenviride.utils.EncryptedSharedPrefs
 import com.google.firebase.auth.FirebaseAuth
 
 
 // Function to retrieve data from encrypted SharedPreferences
-fun getUserRole(context: Context, key: String): String? {
-    val prefs = getEncryptedSharedPreferences(context)
-    return prefs.getString(key, null)
-}
 
 fun checkUserRoleAndOpenActivity(context: Context) {
-    val userRole = getUserRole(context,"role")
+    val userRole = EncryptedSharedPrefs.getUserRole(context)
 
     val intent = when (userRole) {
         "Admin" -> Intent(context, AdminHomeActivity::class.java)

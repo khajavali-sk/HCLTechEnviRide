@@ -11,12 +11,14 @@ class CurrentCycle {
     private val now = LocalDateTime.now()
     @RequiresApi(Build.VERSION_CODES.O)
     var allottedTime: String? = null
-    lateinit var cycleID: String;
+    var cycleID: String? = null
+    var empID: String? = null
 
     constructor()
     @RequiresApi(Build.VERSION_CODES.O)
-    constructor(cycleID: String) {
-        this.allottedTime = now.format(DateTimeFormatter.ofPattern("yy-MM-dd HH:mm"))
+    constructor(cycleID: String,empID: String) {
+        this.allottedTime = now.format(DateTimeFormatter.ofPattern("dd-MM-yy HH:mm"))
         this.cycleID = cycleID
+        this.empID = empID
     }
 }

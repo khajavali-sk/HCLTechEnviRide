@@ -1,6 +1,5 @@
 package com.example.hcltechenviride.fragments_security
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +9,8 @@ import androidx.fragment.app.Fragment
 import com.example.hcltechenviride.EmpLoginActivity
 import com.example.hcltechenviride.Models.User
 import com.example.hcltechenviride.databinding.FragmentSecProfileBinding
-import com.example.hcltechenviride.getEncryptedSharedPreferences
 import com.example.hcltechenviride.utils.EMP_USER_NODE
+import com.example.hcltechenviride.utils.EncryptedSharedPrefs
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -20,12 +19,7 @@ import com.google.firebase.ktx.Firebase
 
 
 
-fun clearUserRole(context: Context){
-    val prefs = getEncryptedSharedPreferences(context)
-    val editor = prefs.edit()
-    editor.remove("role")
-    editor.apply()
-}
+
 class SecProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentSecProfileBinding
@@ -45,7 +39,7 @@ class SecProfileFragment : Fragment() {
 
         binding.logout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
-            clearUserRole(requireActivity())
+            EncryptedSharedPrefs.clearAllData(requireActivity())
 
             startActivity(Intent(requireActivity(),EmpLoginActivity::class.java))
             requireActivity().finish()

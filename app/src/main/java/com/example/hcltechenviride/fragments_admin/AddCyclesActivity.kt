@@ -19,8 +19,6 @@ class AddCyclesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        var cycle = Cycle()
-        var cycleID = binding.cycleID
 
         val cycleColor = binding.cycleColor
         val colors = listOf("Red", "Black", "Blue", "Green")
@@ -52,9 +50,12 @@ class AddCyclesActivity : AppCompatActivity() {
                 Toast.makeText(this@AddCyclesActivity, "please fill all the fields", Toast.LENGTH_SHORT)
                     .show()
             } else {
-                cycle.cycleID = binding.cycleID.editText?.text.toString()
-                cycle.color = selectedColor
-                cycle.location = selectedLocation
+                var cycleId = binding.cycleID.editText?.text.toString()
+//                cycle.color = selectedColor
+//                cycle.location = selectedLocation
+                var cycle: Cycle = Cycle(cycleId,selectedColor,selectedLocation)
+
+
                 Firebase.firestore.collection(CYCLE_FOLDER).document(cycle.cycleID!!).set(cycle)
                     .addOnSuccessListener {
                         Toast.makeText(
@@ -66,7 +67,7 @@ class AddCyclesActivity : AppCompatActivity() {
                     }.addOnFailureListener {
                         Toast.makeText(
                             this@AddCyclesActivity,
-                            "Failed Adding Cycle $cycleID",
+                            "Failed Adding Cycle $cycleId",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
