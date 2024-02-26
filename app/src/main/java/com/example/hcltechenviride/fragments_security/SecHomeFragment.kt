@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.hcltechenviride.Models.History
 import com.example.hcltechenviride.adapters.ReturnedCycleAdapter
 import com.example.hcltechenviride.databinding.FragmentSecHomeBinding
@@ -17,24 +17,24 @@ import com.google.firebase.ktx.Firebase
 
 class SecHomeFragment : Fragment() {
 
-    lateinit var binding: FragmentSecHomeBinding
-    lateinit var adapter: ReturnedCycleAdapter
-    var returnedCycleList = ArrayList<History>()
+    private lateinit var binding: FragmentSecHomeBinding
+    
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
 
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        var adapter: ReturnedCycleAdapter
+        var returnedCycleList = ArrayList<History>()
         // Inflate the layout for this fragment
         binding = FragmentSecHomeBinding.inflate(inflater, container, false)
-        binding.rv.layoutManager = LinearLayoutManager(requireContext())
+        binding.rv.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         adapter = ReturnedCycleAdapter(requireContext(),returnedCycleList)
         binding.rv.adapter = adapter
 
