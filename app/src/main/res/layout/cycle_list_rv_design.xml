@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="5dp"
@@ -28,16 +29,27 @@
         android:layout_marginBottom="5dp"
         android:text="Cycle ID"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/duration"
+        app:layout_constraintBottom_toTopOf="@+id/color"
         app:layout_constraintStart_toEndOf="@+id/cycleLogo"
         app:layout_constraintTop_toTopOf="@+id/cycleLogo" />
 
     <TextView
-        android:id="@+id/duration"
+        android:id="@+id/color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="YY-mm-DD HH:mm "
+        android:text="color"
         app:layout_constraintBottom_toBottomOf="@+id/cycleLogo"
         app:layout_constraintStart_toStartOf="@+id/cycleID"
         app:layout_constraintTop_toBottomOf="@+id/cycleID" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="Location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cycleID" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

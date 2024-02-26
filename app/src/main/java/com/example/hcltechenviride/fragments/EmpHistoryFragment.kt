@@ -35,7 +35,7 @@ class EmpHistoryFragment : Fragment() {
             StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         binding.rv.adapter = adapter
         Firebase.firestore.collection(Firebase.auth.currentUser!!.uid)
-            .orderBy("allotedTime", Query.Direction.DESCENDING).get().addOnSuccessListener {
+            .orderBy("duration", Query.Direction.DESCENDING).get().addOnSuccessListener {
             var tempList = ArrayList<History>()
             for (i in it.documents) {
                 var history: History = i.toObject<History>()!!

@@ -24,6 +24,10 @@ class AdminManageFragment : Fragment() {
             startActivity(Intent(requireActivity(),AddCyclesActivity::class.java))
         }
 
+        binding.cycleList.setOnClickListener {
+            startActivity(Intent(requireActivity(),CycleListActivity::class.java))
+        }
+
         return  binding.root
     }
 

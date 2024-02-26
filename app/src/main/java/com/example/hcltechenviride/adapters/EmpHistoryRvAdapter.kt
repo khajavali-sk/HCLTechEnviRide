@@ -28,7 +28,6 @@ class EmpHistoryRvAdapter(var context: Context, var historyList: ArrayList<Histo
         holder.binding.root
         val historyItem = historyList[position]
         holder.binding.cycleID.text = historyItem.cycleID
-        holder.binding.timeAndDate.text =
-            historyItem.duration
+        holder.binding.duration.text = historyItem.duration
     }
 }
