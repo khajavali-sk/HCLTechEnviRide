@@ -1,5 +1,6 @@
 package com.example.hcltechenviride.fragments
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -38,15 +39,37 @@ class EmpProfileFragment : Fragment() {
         binding = FragmentEmpProfileBinding.inflate(inflater, container,false)
 
         binding.logout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            EncryptedSharedPrefs.clearAllData(requireActivity())
+            if (EncryptedSharedPrefs.getCurrentCycleId(requireActivity()) != null || EncryptedSharedPrefs.getCurrentCycleCount(
+                    requireActivity()
+                ) > 0
+            ) {
+                    val builder = AlertDialog.Builder(requireContext())
 
-            startActivity(Intent(requireActivity(),EmpLoginActivity::class.java))
-            requireActivity().finish()
+                builder.setTitle("Can't Logout")
+                builder.setMessage("Please Return the cycle Before Logout")
+
+                    builder.setPositiveButton("OK") { dialog, which ->
+
+                        dialog.dismiss()
+                    }
 
 
+                    val dialog = builder.create()
+                    dialog.show()
+                }
+                else{
+                    FirebaseAuth.getInstance().signOut()
+                    EncryptedSharedPrefs.clearAllData(requireActivity())
 
+                    startActivity(Intent(requireActivity(), EmpLoginActivity::class.java))
+                    requireActivity().finish()
+                }
             }
+
+
+
+
+
         return binding.root
 
     }

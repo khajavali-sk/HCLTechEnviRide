@@ -44,6 +44,8 @@ class AdminComplaintsFragment : Fragment() {
                     tempList.add(damagedCycle)
                 }
                 damagedCycleList.addAll(tempList)
+
+                binding.cyCount.text = "Damaged Cycles : ${damagedCycleList.size}"
                 adapter.notifyDataSetChanged()
             }
 

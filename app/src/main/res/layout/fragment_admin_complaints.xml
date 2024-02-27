@@ -18,6 +18,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Damaged Cycles"
         app:titleTextColor="@color/white" />
+    <TextView
+        android:id="@+id/cyCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Damaged Cycles :  0"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/materialToolbar"
+        tools:layout_editor_absoluteX="0dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
@@ -26,6 +36,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialToolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/cyCount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

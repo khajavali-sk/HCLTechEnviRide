@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:padding="15dp"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="8dp"
+    android:padding="15dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,20 +29,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="5dp"
             android:text="Cycle ID"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/duration"
             app:layout_constraintStart_toEndOf="@+id/cycleLogo"
             app:layout_constraintTop_toTopOf="@+id/cycleLogo" />
 
         <TextView
-            android:id="@+id/duration"
+            android:id="@+id/employeeId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="YY-mm-DD HH:mm "
+            android:text="Employee ID"
             app:layout_constraintBottom_toBottomOf="@+id/cycleLogo"
             app:layout_constraintStart_toStartOf="@+id/cycleID"
             app:layout_constraintTop_toBottomOf="@+id/cycleID" />
+
+        <TextView
+            android:id="@+id/allottedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="YY-mm-DD HH:mm "
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

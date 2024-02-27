@@ -152,6 +152,35 @@ class EmpHomeFragment : Fragment() {
                 ).show()
             }
     }
+
+
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun returnCurrentCycle(currCyId: String) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection(CYCLE_FOLDER).document(currCyId).update("allotted", "False")
+            .addOnSuccessListener {
+                db.collection(CURRENT_CYCLE_FOLDER).document(currCyId).get()
+                    .addOnSuccessListener { documentSnapshot ->
+                        val currCycle: CurrentCycle = documentSnapshot.toObject<CurrentCycle>()!!
+                        val history: History =
+                            History(currCycle.cycleID, currCycle.empID, currCycle.allottedTime)
+                        db.collection(HISTORY_FOLDER).document().set(history)
+                        db.collection(RETURNED_CYCLE_FOLDER).document(currCyId).set(history)
+                        db.collection(Firebase.auth.currentUser!!.uid).document().set(history)
+                    }.addOnSuccessListener {
+                        db.collection(CURRENT_CYCLE_FOLDER).document(currCyId).delete()
+                    }
+            }.addOnSuccessListener {
+                Log.d(TAG, "Cycle returned Successfully")
+            }
+    }
+
+    companion object {
+
+    }
+
 }
 
 class DocumentChecker {
@@ -175,23 +204,4 @@ class DocumentChecker {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
-private fun returnCurrentCycle(currCyId: String) {
-    val db = FirebaseFirestore.getInstance()
-    db.collection(CYCLE_FOLDER).document(currCyId).update("allotted", "False")
-        .addOnSuccessListener {
-            db.collection(CURRENT_CYCLE_FOLDER).document(currCyId).get()
-                .addOnSuccessListener { documentSnapshot ->
-                    val currCycle: CurrentCycle = documentSnapshot.toObject<CurrentCycle>()!!
-                    val history: History =
-                        History(currCycle.cycleID, currCycle.empID, currCycle.allottedTime)
-                    db.collection(HISTORY_FOLDER).document().set(history)
-                    db.collection(RETURNED_CYCLE_FOLDER).document(currCyId).set(history)
-                    db.collection(Firebase.auth.currentUser!!.uid).document().set(history)
-                }.addOnSuccessListener {
-                    db.collection(CURRENT_CYCLE_FOLDER).document(currCyId).delete()
-                }
-        }.addOnSuccessListener {
-            Log.d(TAG, "Cycle returned Successfully")
-        }
-}
+

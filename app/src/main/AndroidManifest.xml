@@ -20,6 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HCLTechEnviRide"
         tools:targetApi="31">
+
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
         <activity
             android:name=".fragments_admin.CycleListActivity"
             android:exported="false" />
