@@ -106,7 +106,7 @@ class EmpHomeFragment : Fragment() {
                         } else {
                             EncryptedSharedPrefs.setCurrentCycleCount(requireActivity(), 0)
                             Toast.makeText(
-                                requireActivity(), "Cycle already in use", Toast.LENGTH_SHORT
+                                requireActivity(), "Cycle already in use or Damaged", Toast.LENGTH_SHORT
                             ).show()
                         }
                     } else {

@@ -41,14 +41,16 @@ class SecHomeFragment : Fragment() {
         Firebase.firestore.collection(RETURNED_CYCLE_FOLDER).get().addOnSuccessListener {
             var tempList = ArrayList<History>()
             for (i in it.documents){
-                var reCycle: History = i.toObject<History>()!!
-                tempList.add(reCycle)
+                var returnedCycle: History = i.toObject<History>()!!
+                tempList.add(returnedCycle)
             }
             returnedCycleList.addAll(tempList)
+
+            binding.cyCount.text = "Pending Cycles : ${returnedCycleList.size}"
             adapter.notifyDataSetChanged()
         }
 
-        binding.searchView.setOnClickListener {  }
+
 
 
         return binding.root

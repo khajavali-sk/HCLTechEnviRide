@@ -10,11 +10,6 @@
         android:label="fragment_sec_home"
         tools:layout="@layout/fragment_sec_home" />
     <fragment
-        android:id="@+id/sec_history"
-        android:name="com.example.hcltechenviride.fragments_security.SecHistoryFragment"
-        android:label="fragment_sec_history"
-        tools:layout="@layout/fragment_sec_history" />
-    <fragment
         android:id="@+id/sec_profile"
         android:name="com.example.hcltechenviride.fragments_security.SecProfileFragment"
         android:label="fragment_sec_profile"

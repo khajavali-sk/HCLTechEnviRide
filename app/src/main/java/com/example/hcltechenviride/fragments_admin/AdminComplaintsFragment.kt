@@ -5,56 +5,56 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.hcltechenviride.R
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.hcltechenviride.Models.History
+import com.example.hcltechenviride.adapters.DamagedCycleAdapter
+import com.example.hcltechenviride.databinding.FragmentAdminComplaintsBinding
+import com.example.hcltechenviride.utils.COMPLAINTS_FOLDER
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.toObject
+import com.google.firebase.ktx.Firebase
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AdminComplaintsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AdminComplaintsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
+    private lateinit var binding : FragmentAdminComplaintsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_admin_complaints, container, false)
-    }
+    ): View?
+        {
+
+            var adapter: DamagedCycleAdapter
+            var damagedCycleList = ArrayList<History>()
+            // Inflate the layout for this fragment
+            binding = FragmentAdminComplaintsBinding.inflate(inflater, container, false)
+            binding.rv.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+            adapter = DamagedCycleAdapter(requireContext(),damagedCycleList)
+            binding.rv.adapter = adapter
+
+            Firebase.firestore.collection(COMPLAINTS_FOLDER).get().addOnSuccessListener {
+                var tempList = ArrayList<History>()
+                for (i in it.documents){
+                    var damagedCycle: History = i.toObject<History>()!!
+                    tempList.add(damagedCycle)
+                }
+                damagedCycleList.addAll(tempList)
+                adapter.notifyDataSetChanged()
+            }
+
+
+
+
+            return binding.root
+        }
+
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AdminComplaintsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AdminComplaintsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
     }
 }

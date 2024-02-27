@@ -15,8 +15,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/cycleLogo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/bicycle"
@@ -31,40 +31,29 @@
             android:layout_marginBottom="4dp"
             android:text="Cycle ID"
             android:textSize="18dp"
-            app:layout_constraintBottom_toTopOf="@+id/duration"
+            app:layout_constraintBottom_toTopOf="@+id/employeeId"
             app:layout_constraintStart_toEndOf="@+id/cycleLogo"
             app:layout_constraintTop_toTopOf="@+id/cycleLogo" />
 
         <TextView
-            android:id="@+id/duration"
+            android:id="@+id/employeeId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="duration"
+            android:text="Employee ID"
             app:layout_constraintStart_toStartOf="@+id/cycleID"
             app:layout_constraintTop_toBottomOf="@+id/cycleID" />
 
-        <Button
-            android:id="@+id/complain"
-            android:layout_width="110dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="22dp"
-            android:text="Complain"
-            app:layout_constraintBottom_toBottomOf="@+id/cycleLogo"
-            app:layout_constraintEnd_toStartOf="@+id/accept"
-            app:layout_constraintStart_toStartOf="@+id/duration"
-            app:layout_constraintTop_toBottomOf="@+id/duration" />
 
         <Button
-            android:id="@+id/accept"
+            android:id="@+id/repaired"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
 
             android:layout_marginEnd="8dp"
-            android:text="Accept"
-            app:layout_constraintBottom_toBottomOf="@+id/complain"
+            android:text="Repaired"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/complain" />
+            app:layout_constraintTop_toTopOf="@+id/cycleID" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
