@@ -27,7 +27,7 @@ HCL Tech Enviride is a mobile application designed to simplify cycle allottement
 
 
 Installation
-Clone the repository: git clone [repository URL]
+Clone the repository: git clone https://github.com/khajavali-sk/HCLTechEnviRide.git
 Open the project in Android Studio
 Build and run the project on an Android device or emulator
 
