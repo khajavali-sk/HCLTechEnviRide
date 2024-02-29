@@ -43,15 +43,15 @@ Build and run the project on an Android device or emulator
 #include &lt;addons/TokenHelper.h&gt;
 #include &lt;ArduinoJson.h&gt;
 
-#define WIFI_SSID "K........"
-#define WIFI_PASSWORD "asdf1234"
+#define WIFI_SSID "xyz"
+#define WIFI_PASSWORD "--pass-word--"
 
-#define API_KEY "AIzaSyBUD11z_R2YvdMW79BuO1NG2CzVNVz_X5I"
+#define API_KEY "--GPT ADDANKI--"  //not original
 
 #define FIREBASE_PROJECT_ID "hcltech-enviride"
 
-#define USER_EMAIL "kcycle1@gmail.com"
-#define USER_PASSWORD "112233"
+#define USER_EMAIL "XYZ@email.com"  //not original
+#define USER_PASSWORD "______"    //not original
 
 #define LED_PIN D4
 
