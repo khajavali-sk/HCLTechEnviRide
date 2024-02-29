@@ -32,48 +32,38 @@ private const val i = 0
 class EmpHomeFragment : Fragment() {
     private lateinit var binding: FragmentEmpHomeBinding
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEmpHomeBinding.inflate(inflater, container, false)
 
-        var viewPager = binding.viewPager2
         // Set up ViewPager2 with adapter
-        val adapter = CarouselAdapter(requireContext(),listOf(R.drawable.pic0, R.drawable.pic1, R.drawable.pic2))
+        val viewPager = binding.viewPager2
+        val adapter = CarouselAdapter(requireContext(), listOf(R.drawable.pic0, R.drawable.pic1, R.drawable.pic2))
         viewPager.adapter = adapter
 
-        binding.cycleID.text = "Cycle ID : ${EncryptedSharedPrefs.getCurrentCycleId(requireActivity())}"
-
+        // Set up click listeners for scan and return buttons
         binding.scan.setOnClickListener {
             if (EncryptedSharedPrefs.getCurrentCycleCount(requireActivity()) < 1) {
                 startQrCodeScanner()
                 EncryptedSharedPrefs.setCurrentCycleCount(requireActivity(), 1)
             } else {
-                Toast.makeText(
-                    requireActivity(), "Can only request one cycle at a time", Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireActivity(), "Can only request one cycle at a time", Toast.LENGTH_SHORT).show()
             }
         }
 
-
         binding.returnBack.setOnClickListener {
-            if (EncryptedSharedPrefs.getCurrentCycleId(requireActivity())!=null|| EncryptedSharedPrefs.getCurrentCycleCount(requireActivity())>0)  {
+            if (EncryptedSharedPrefs.getCurrentCycleId(requireActivity()) != null ||
+                EncryptedSharedPrefs.getCurrentCycleCount(requireActivity()) > 0
+            ) {
                 returnCurrentCycle(EncryptedSharedPrefs.getCurrentCycleId(requireActivity())!!)
                 EncryptedSharedPrefs.setCurrentCycleCount(requireActivity(), 0)
                 EncryptedSharedPrefs.clearCurrentCycleId(requireActivity())
                 binding.cycleID.text = "Cycle ID : ${EncryptedSharedPrefs.getCurrentCycleId(requireActivity())}"
-                Toast.makeText(requireActivity(), "Returned successfully", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(requireActivity(), "Returned successfully", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(
-                    requireActivity(), "Don't have a cycle to return", Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireActivity(), "Don't have a cycle to return", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -88,7 +78,6 @@ class EmpHomeFragment : Fragment() {
         integrator.initiateScan()
     }
 
-    @Deprecated("Deprecated in Java")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -109,22 +98,15 @@ class EmpHomeFragment : Fragment() {
                 checker.checkDocument(CYCLE_FOLDER, scannedCycleId) { documentExists, isAllotted, isDamaged ->
                     if (documentExists) {
                         if (isAllotted == "False" && isDamaged == "False") {
-                            allotCycle(
-                                scannedCycleId,
-                                EncryptedSharedPrefs.getCurrentEmployeeId(requireActivity())!!
-                            )
+                            allotCycle(scannedCycleId, EncryptedSharedPrefs.getCurrentEmployeeId(requireActivity())!!)
                             EncryptedSharedPrefs.setCurrentCycleId(requireActivity(), scannedCycleId)
                         } else {
                             EncryptedSharedPrefs.setCurrentCycleCount(requireActivity(), 0)
-                            Toast.makeText(
-                                requireActivity(), "Cycle already in use or Damaged", Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(requireActivity(), "Cycle already in use or Damaged", Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         EncryptedSharedPrefs.setCurrentCycleCount(requireActivity(), 0)
-                        Toast.makeText(
-                            requireActivity(), "Invalid QR Code", Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireActivity(), "Invalid QR Code", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -145,29 +127,18 @@ class EmpHomeFragment : Fragment() {
                 db.collection(CYCLE_FOLDER).document(scannedCycleId).update("allotted", "True")
                     .addOnSuccessListener {
                         binding.cycleID.text = "Cycle ID : ${EncryptedSharedPrefs.getCurrentCycleId(requireActivity())}"
-                        Toast.makeText(
-
-                            requireActivity(), "Cycle allocated successfully", Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireActivity(), "Cycle allocated successfully", Toast.LENGTH_SHORT).show()
                     }.addOnFailureListener {
                         Log.e(TAG, "Error adding history: ${it.localizedMessage}")
                         EncryptedSharedPrefs.setCurrentCycleCount(requireActivity(), 0)
-                        Toast.makeText(
-                            requireActivity(),
-                            "Failed to allocate cycle: ${it.localizedMessage}", Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(requireActivity(), "Failed to allocate cycle: ${it.localizedMessage}", Toast.LENGTH_SHORT).show()
                     }
             }.addOnFailureListener {
                 Log.e(TAG, "Error adding history: ${it.localizedMessage}")
                 EncryptedSharedPrefs.setCurrentCycleCount(requireActivity(), 0)
-                Toast.makeText(
-                    requireActivity(), "Failed to allocate cycle: ${it.localizedMessage}", Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireActivity(), "Failed to allocate cycle: ${it.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
     }
-
-
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun returnCurrentCycle(currCyId: String) {
@@ -177,8 +148,7 @@ class EmpHomeFragment : Fragment() {
                 db.collection(CURRENT_CYCLE_FOLDER).document(currCyId).get()
                     .addOnSuccessListener { documentSnapshot ->
                         val currCycle: CurrentCycle = documentSnapshot.toObject<CurrentCycle>()!!
-                        val history: History =
-                            History(currCycle.cycleID, currCycle.empID, currCycle.allottedTime)
+                        val history: History = History(currCycle.cycleID, currCycle.empID, currCycle.allottedTime)
                         db.collection(HISTORY_FOLDER).document().set(history)
                         db.collection(RETURNED_CYCLE_FOLDER).document(currCyId).set(history)
                         db.collection(Firebase.auth.currentUser!!.uid).document().set(history)
@@ -216,5 +186,3 @@ class DocumentChecker {
         }
     }
 }
-
-

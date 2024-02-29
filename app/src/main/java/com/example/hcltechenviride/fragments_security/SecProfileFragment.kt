@@ -17,55 +17,37 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 
-
-
-
 class SecProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentSecProfileBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        binding = FragmentSecProfileBinding.inflate(inflater, container,false)
+        binding = FragmentSecProfileBinding.inflate(inflater, container, false)
 
         binding.logout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             EncryptedSharedPrefs.clearAllData(requireActivity())
 
-            startActivity(Intent(requireActivity(),EmpLoginActivity::class.java))
+            startActivity(Intent(requireActivity(), EmpLoginActivity::class.java))
             requireActivity().finish()
-
-
-
         }
         return binding.root
-
-    }
-
-
-
-    companion object {
-
     }
 
     override fun onStart() {
         super.onStart()
         Firebase.firestore.collection(EMP_USER_NODE).document(Firebase.auth.currentUser!!.uid).get()
-            .addOnSuccessListener {
-                val user:User = it.toObject<User>()!!
-                binding.name.text = user.name
-                binding.id.text = user.employeeId
-                binding.email.text = user.email
-                binding.role.text = user.role
+            .addOnSuccessListener { documentSnapshot ->
+                val user: User? = documentSnapshot.toObject<User>()
+                user?.let {
+                    binding.name.text = user.name
+                    binding.id.text = user.employeeId
+                    binding.email.text = user.email
+                    binding.role.text = user.role
+                }
             }
     }
 

@@ -52,6 +52,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     implementation("androidx.navigation:navigation-fragment:2.7.7")
     implementation("androidx.navigation:navigation-ui:2.7.7")
+
+    // Security Crypto
     implementation("androidx.security:security-crypto-ktx:1.0.0")
     implementation("androidx.security:security-crypto-ktx:1.1.0-alpha06")
     testImplementation("junit:junit:4.13.2")
@@ -62,22 +64,23 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
     // Import the BoM for the Firebase platform
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
-
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-auth")
 
     // Also add the dependency for the Google Play services library and specify its version
     implementation("com.google.android.gms:play-services-auth:21.0.0")
+
     //to show rounded image
     implementation("com.makeramen:roundedimageview:2.3.0")
 
+    // View Pager 2 and RecyclerView
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation ("androidx.recyclerview:recyclerview:1.3.2")
 
 
 
-    //zxing
+    // ZXing for QR code scanning
     implementation("com.google.zxing:core:3.4.1")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 

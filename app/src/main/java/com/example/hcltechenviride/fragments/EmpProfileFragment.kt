@@ -18,73 +18,49 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 
-
-
-
 class EmpProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentEmpProfileBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentEmpProfileBinding.inflate(inflater, container,false)
+        binding = FragmentEmpProfileBinding.inflate(inflater, container, false)
 
+        // Set logout button click listener
         binding.logout.setOnClickListener {
-            if (EncryptedSharedPrefs.getCurrentCycleId(requireActivity()) != null || EncryptedSharedPrefs.getCurrentCycleCount(
-                    requireActivity()
-                ) > 0
+            if (EncryptedSharedPrefs.getCurrentCycleId(requireActivity()) != null ||
+                EncryptedSharedPrefs.getCurrentCycleCount(requireActivity()) > 0
             ) {
-                    val builder = AlertDialog.Builder(requireContext())
-
+                // Show alert dialog if user has an active cycle
+                val builder = AlertDialog.Builder(requireContext())
                 builder.setTitle("Can't Logout")
                 builder.setMessage("Please Return the cycle Before Logout")
-
-                    builder.setPositiveButton("OK") { dialog, which ->
-
-                        dialog.dismiss()
-                    }
-
-
-                    val dialog = builder.create()
-                    dialog.show()
+                builder.setPositiveButton("OK") { dialog, which ->
+                    dialog.dismiss()
                 }
-                else{
-                    FirebaseAuth.getInstance().signOut()
-                    EncryptedSharedPrefs.clearAllData(requireActivity())
-
-                    startActivity(Intent(requireActivity(), EmpLoginActivity::class.java))
-                    requireActivity().finish()
-                }
+                val dialog = builder.create()
+                dialog.show()
+            } else {
+                // Logout user if no active cycle
+                FirebaseAuth.getInstance().signOut()
+                EncryptedSharedPrefs.clearAllData(requireActivity())
+                startActivity(Intent(requireActivity(), EmpLoginActivity::class.java))
+                requireActivity().finish()
             }
-
-
-
-
+        }
 
         return binding.root
-
-    }
-
-
-
-    companion object {
-
     }
 
     override fun onStart() {
         super.onStart()
+        // Fetch user data and populate UI
         Firebase.firestore.collection(EMP_USER_NODE).document(Firebase.auth.currentUser!!.uid).get()
             .addOnSuccessListener {
-                val user:User = it.toObject<User>()!!
+                val user: User = it.toObject<User>()!!
                 binding.name.text = user.name
                 binding.id.text = user.employeeId
                 binding.email.text = user.email

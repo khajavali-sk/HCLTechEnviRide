@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hcltechenviride.databinding.CarouselRvDesignBinding
-//import kotlinx.android.synthetic.main.item_carousel.view.*
+
 
 class CarouselAdapter(var context: Context,private val images: List<Int>) : RecyclerView.Adapter<CarouselAdapter.ViewHolder>() {
 

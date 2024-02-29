@@ -17,18 +17,9 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 
-
-
-
 class AdminProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentAdminProfileBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,31 +28,25 @@ class AdminProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentAdminProfileBinding.inflate(inflater, container,false)
 
+        // Logout functionality
         binding.logout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             EncryptedSharedPrefs.clearAllData(requireActivity())
 
             startActivity(Intent(requireActivity(),EmpLoginActivity::class.java))
             requireActivity().finish()
-
-
-
         }
+
         return binding.root
-
-    }
-
-
-
-    companion object {
-
     }
 
     override fun onStart() {
         super.onStart()
+
+        // Retrieve user data from Firestore and populate profile
         Firebase.firestore.collection(EMP_USER_NODE).document(Firebase.auth.currentUser!!.uid).get()
             .addOnSuccessListener {
-                val user:User = it.toObject<User>()!!
+                val user:User = it.toObject<User>()!! // Convert Firestore document to User object
                 binding.name.text = user.name
                 binding.id.text = user.employeeId
                 binding.email.text = user.email

@@ -14,47 +14,41 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 
-
 class AdminComplaintsFragment : Fragment() {
 
-    private lateinit var binding : FragmentAdminComplaintsBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private lateinit var binding: FragmentAdminComplaintsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?
-        {
+    ): View? {
+        // Initialize adapter and list for damaged cycles
+        var adapter: DamagedCycleAdapter
+        var damagedCycleList = ArrayList<History>()
 
-            var adapter: DamagedCycleAdapter
-            var damagedCycleList = ArrayList<History>()
-            // Inflate the layout for this fragment
-            binding = FragmentAdminComplaintsBinding.inflate(inflater, container, false)
-            binding.rv.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
-            adapter = DamagedCycleAdapter(requireContext(),damagedCycleList)
-            binding.rv.adapter = adapter
+        // Inflate the layout for this fragment
+        binding = FragmentAdminComplaintsBinding.inflate(inflater, container, false)
+        // Set up RecyclerView with StaggeredGridLayoutManager
+        binding.rv.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+        adapter = DamagedCycleAdapter(requireContext(), damagedCycleList)
+        binding.rv.adapter = adapter
 
-            Firebase.firestore.collection(COMPLAINTS_FOLDER).get().addOnSuccessListener {
-                var tempList = ArrayList<History>()
-                for (i in it.documents){
-                    var damagedCycle: History = i.toObject<History>()!!
-                    tempList.add(damagedCycle)
-                }
-                damagedCycleList.addAll(tempList)
-
-                binding.cyCount.text = "Damaged Cycles : ${damagedCycleList.size}"
-                adapter.notifyDataSetChanged()
+        // Retrieve data from Firestore collection
+        Firebase.firestore.collection(COMPLAINTS_FOLDER).get().addOnSuccessListener { querySnapshot ->
+            val tempList = ArrayList<History>()
+            for (document in querySnapshot.documents) {
+                // Convert each document to History object and add to list
+                val damagedCycle: History = document.toObject<History>()!!
+                tempList.add(damagedCycle)
             }
-
-
-
-
-            return binding.root
+            // Update list and UI with data
+            damagedCycleList.addAll(tempList)
+            binding.cyCount.text = "Damaged Cycles : ${damagedCycleList.size}"
+            adapter.notifyDataSetChanged()
         }
 
+        return binding.root
+    }
 
     companion object {
 

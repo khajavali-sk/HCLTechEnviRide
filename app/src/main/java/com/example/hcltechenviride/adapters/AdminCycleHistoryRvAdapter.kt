@@ -11,21 +11,24 @@ import com.example.hcltechenviride.databinding.AdminHistoryRvDesignBinding
 
 class AdminCycleHistoryRvAdapter(var context: Context, var historyList: ArrayList<History>) :
     RecyclerView.Adapter<AdminCycleHistoryRvAdapter.ViewHolder>() {
+
     inner class ViewHolder(var binding: AdminHistoryRvDesignBinding) :
         RecyclerView.ViewHolder(binding.root)
 
+    // Inflate the layout and create ViewHolder instances
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var binding = AdminHistoryRvDesignBinding.inflate(LayoutInflater.from(context), parent, false)
+        val binding = AdminHistoryRvDesignBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(binding)
     }
 
+    // Return the size of the historyList
     override fun getItemCount(): Int {
         return historyList.size
     }
 
+    // Bind data to views in the ViewHolder
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val historyItem = historyList[position]
         holder.binding.cycleID.text = historyItem.cycleID
         holder.binding.employeeId.text = historyItem.empID

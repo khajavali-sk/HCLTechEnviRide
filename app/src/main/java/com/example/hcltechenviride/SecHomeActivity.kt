@@ -17,12 +17,9 @@ class SecHomeActivity : AppCompatActivity() {
         binding = ActivitySecHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Set up the bottom navigation view
         val navView: BottomNavigationView = binding.navView
-
         val navController = findNavController(R.id.nav_host_fragment_activity_sec_home)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-
         navView.setupWithNavController(navController)
     }
 }

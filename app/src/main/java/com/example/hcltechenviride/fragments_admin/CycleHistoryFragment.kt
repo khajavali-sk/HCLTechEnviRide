@@ -15,41 +15,37 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 
-
 class CycleHistoryFragment : Fragment() {
     private lateinit var binding: FragmentCycleHistoryBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
         binding = FragmentCycleHistoryBinding.inflate(inflater, container, false)
+
+        // Initialize history list and adapter
         var historyList = ArrayList<History>()
         var adapter = AdminCycleHistoryRvAdapter(requireContext(), historyList)
+
+        // Set layout manager and adapter to RecyclerView
         binding.rv.layoutManager =
             StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         binding.rv.adapter = adapter
+
+        // Retrieve cycle history data from Firestore and populate the list
         Firebase.firestore.collection(HISTORY_FOLDER)
             .orderBy("duration", Query.Direction.DESCENDING).get().addOnSuccessListener {
                 var tempList = ArrayList<History>()
                 for (i in it.documents) {
-                    var history: History = i.toObject<History>()!!
+                    var history: History = i.toObject<History>()!! // Convert Firestore document to History object
                     tempList.add(history)
                 }
-                historyList.addAll(tempList)
-                adapter.notifyDataSetChanged()
+                historyList.addAll(tempList) // Add retrieved history items to the list
+                adapter.notifyDataSetChanged() // Notify adapter about data change
             }
 
         return binding.root
     }
-    companion object {
-
-    }
-
-
 }

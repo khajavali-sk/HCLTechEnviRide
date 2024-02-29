@@ -11,22 +11,29 @@ import com.example.hcltechenviride.databinding.EmpHistoryRvDesignBinding
 
 class EmpHistoryRvAdapter(var context: Context, var historyList: ArrayList<History>) :
     RecyclerView.Adapter<EmpHistoryRvAdapter.ViewHolder>() {
+
     inner class ViewHolder(var binding: EmpHistoryRvDesignBinding) :
         RecyclerView.ViewHolder(binding.root)
 
+    // Called when RecyclerView needs a new ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var binding = EmpHistoryRvDesignBinding.inflate(LayoutInflater.from(context), parent, false)
+        // Inflate the item layout and create a new ViewHolder
+        val binding = EmpHistoryRvDesignBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(binding)
     }
 
+    // Returns the total number of items in the data set held by the adapter
     override fun getItemCount(): Int {
         return historyList.size
     }
 
+    // Called by RecyclerView to display the data at the specified position
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.root
+        // Get the data model based on position
         val historyItem = historyList[position]
+
+        // Bind data to the views in the ViewHolder
         holder.binding.cycleID.text = historyItem.cycleID
         holder.binding.duration.text = historyItem.duration
     }

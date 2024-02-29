@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.hcltechenviride.databinding.FragmentAdminManageBinding
 
-
 class AdminManageFragment : Fragment() {
 
     private lateinit var binding: FragmentAdminManageBinding
@@ -17,19 +16,20 @@ class AdminManageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentAdminManageBinding.inflate(inflater, container, false)
 
-        binding = FragmentAdminManageBinding.inflate(inflater, container,false)
-
+        // Button click listeners to navigate to different activities
         binding.addCycleBtn.setOnClickListener {
-            startActivity(Intent(requireActivity(),AddCyclesActivity::class.java))
+            startActivity(Intent(requireActivity(), AddCyclesActivity::class.java))
         }
 
         binding.cycleList.setOnClickListener {
-            startActivity(Intent(requireActivity(),CycleListActivity::class.java))
+            startActivity(Intent(requireActivity(), CycleListActivity::class.java))
         }
 
         binding.userList.setOnClickListener {
-            startActivity(Intent(requireActivity(),UserListActivity::class.java))
+            startActivity(Intent(requireActivity(), UserListActivity::class.java))
         }
 
         return  binding.root

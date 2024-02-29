@@ -16,17 +16,21 @@ import com.google.firebase.ktx.Firebase
 
 class SignUpActivity : AppCompatActivity() {
 
-    val binding by lazy {
+    // Using view binding to access UI elements
+    private val binding by lazy {
         ActivitySignUpBinding.inflate(layoutInflater)
     }
 
-    lateinit var user: User
+    private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        // Customize the "Already have an account?" text
         val text = "<font color=#FF000000>Already have an account?</font> <font color=#1E88E5>Login</font>"
-        binding.toLogin.setText(Html.fromHtml(text))
+        binding.toLogin.text = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
+
         user = User()
 
         // Initialize the Spinner with user roles
@@ -57,6 +61,7 @@ class SignUpActivity : AppCompatActivity() {
                     binding.password.editText?.text.toString()
                 ).addOnCompleteListener { result ->
                     if (result.isSuccessful) {
+                        // Set user details
                         user.name = binding.name.editText?.text.toString()
                         user.employeeId = binding.id.editText?.text.toString()
                         user.email = binding.email.editText?.text.toString()
@@ -67,6 +72,7 @@ class SignUpActivity : AppCompatActivity() {
                         Firebase.firestore.collection(EMP_USER_NODE)
                             .document(Firebase.auth.currentUser!!.uid).set(user)
                             .addOnSuccessListener {
+                                // Navigate to login activity on successful registration
                                 startActivity(
                                     Intent(
                                         this@SignUpActivity,
@@ -81,6 +87,7 @@ class SignUpActivity : AppCompatActivity() {
                                 ).show()
                             }
                     } else {
+                        // Show error message if registration fails
                         Toast.makeText(
                             this@SignUpActivity,
                             result.exception?.localizedMessage,
@@ -90,9 +97,10 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         }
-        binding.toLogin.setOnClickListener {
-            startActivity(Intent(this@SignUpActivity, EmpLoginActivity::class.java))
 
+        binding.toLogin.setOnClickListener {
+            // Navigate to login activity when "Login" is clicked
+            startActivity(Intent(this@SignUpActivity, EmpLoginActivity::class.java))
             finish()
         }
     }

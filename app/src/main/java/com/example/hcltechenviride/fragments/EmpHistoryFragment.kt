@@ -15,42 +15,34 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 
-
 class EmpHistoryFragment : Fragment() {
+
     private lateinit var binding: FragmentEmpHistoryBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEmpHistoryBinding.inflate(inflater, container, false)
-        var historyList = ArrayList<History>()
-        var adapter = EmpHistoryRvAdapter(requireContext(), historyList)
+        val historyList = ArrayList<History>()
+        val adapter = EmpHistoryRvAdapter(requireContext(), historyList)
         binding.rv.layoutManager =
             StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         binding.rv.adapter = adapter
+
+        // Fetch user history from Firestore and populate RecyclerView
         Firebase.firestore.collection(Firebase.auth.currentUser!!.uid)
-            .orderBy("duration", Query.Direction.DESCENDING).get().addOnSuccessListener {
-            var tempList = ArrayList<History>()
-            for (i in it.documents) {
-                var history: History = i.toObject<History>()!!
-                tempList.add(history)
+            .orderBy("duration", Query.Direction.DESCENDING)
+            .get().addOnSuccessListener { querySnapshot ->
+                val tempList = ArrayList<History>()
+                for (document in querySnapshot.documents) {
+                    val history: History = document.toObject<History>()!!
+                    tempList.add(history)
+                }
+                historyList.addAll(tempList)
+                adapter.notifyDataSetChanged()
             }
-            historyList.addAll(tempList)
-            adapter.notifyDataSetChanged()
-        }
 
         return binding.root
     }
-
-    companion object {
-
-    }
-
-
 }
