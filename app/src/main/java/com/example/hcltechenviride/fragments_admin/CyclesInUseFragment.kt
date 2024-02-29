@@ -42,7 +42,11 @@ class CyclesInUseFragment : Fragment() {
                     var cycle: CurrentCycle = i.toObject<CurrentCycle>()!!
                     tempList.add(cycle)
                 }
+
                 cycleInUseList.addAll(tempList)
+                if (cycleInUseList.size > 0){
+                    binding.textView.visibility = View.INVISIBLE
+                }
                 adapter.notifyDataSetChanged()
             }
 

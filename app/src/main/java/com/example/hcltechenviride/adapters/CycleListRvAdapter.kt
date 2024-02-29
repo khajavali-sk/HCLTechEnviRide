@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hcltechenviride.Models.Cycle
@@ -37,29 +38,35 @@ class CycleListRvAdapter(var context: Context, var cycleList: ArrayList<Cycle>) 
         holder.binding.delete.setOnClickListener {
 
 
+            if (cycleList[position].allotted == "True") {
 
-            val builder = android.app.AlertDialog.Builder(context)
+                Toast.makeText(context, "Can't Delete Cycle is in use", Toast.LENGTH_SHORT).show()
 
-            builder.setTitle("Can't Logout")
-            builder.setMessage("Please Return the cycle Before Logout")
+            } else {
 
-            builder.setNegativeButton("Confirm"){
-                dialog,which -> Firebase.firestore.collection(CYCLE_FOLDER)
-                .document(cycleList[position].cycleID!!).delete()
-                removeAt(position)
+                val builder = android.app.AlertDialog.Builder(context)
 
-                dialog.dismiss()
+                builder.setTitle("Confirm Delete!")
+                builder.setMessage("Do you want to delete this Cycle")
+
+                builder.setNegativeButton("Confirm") { dialog, which ->
+                    Firebase.firestore.collection(CYCLE_FOLDER)
+                        .document(cycleList[position].cycleID!!).delete()
+                    removeAt(position)
+
+                    dialog.dismiss()
+                }
+
+
+                builder.setPositiveButton("Cancel") { dialog, which ->
+
+                    dialog.dismiss()
+                }
+
+
+                val dialog = builder.create()
+                dialog.show()
             }
-
-
-            builder.setPositiveButton("Cancel") { dialog, which ->
-
-                dialog.dismiss()
-            }
-
-
-            val dialog = builder.create()
-            dialog.show()
         }
     }
 

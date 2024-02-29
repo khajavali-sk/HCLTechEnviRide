@@ -13,6 +13,8 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.hcltechenviride.Models.CurrentCycle
 import com.example.hcltechenviride.Models.History
+import com.example.hcltechenviride.R
+import com.example.hcltechenviride.adapters.CarouselAdapter
 import com.example.hcltechenviride.databinding.FragmentEmpHomeBinding
 import com.example.hcltechenviride.utils.CURRENT_CYCLE_FOLDER
 import com.example.hcltechenviride.utils.CYCLE_FOLDER
@@ -30,6 +32,7 @@ private const val i = 0
 class EmpHomeFragment : Fragment() {
     private lateinit var binding: FragmentEmpHomeBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -39,6 +42,13 @@ class EmpHomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEmpHomeBinding.inflate(inflater, container, false)
+
+        var viewPager = binding.viewPager2
+        // Set up ViewPager2 with adapter
+        val adapter = CarouselAdapter(requireContext(),listOf(R.drawable.pic0, R.drawable.pic1, R.drawable.pic2))
+        viewPager.adapter = adapter
+
+        binding.cycleID.text = "Cycle ID : ${EncryptedSharedPrefs.getCurrentCycleId(requireActivity())}"
 
         binding.scan.setOnClickListener {
             if (EncryptedSharedPrefs.getCurrentCycleCount(requireActivity()) < 1) {
@@ -57,6 +67,7 @@ class EmpHomeFragment : Fragment() {
                 returnCurrentCycle(EncryptedSharedPrefs.getCurrentCycleId(requireActivity())!!)
                 EncryptedSharedPrefs.setCurrentCycleCount(requireActivity(), 0)
                 EncryptedSharedPrefs.clearCurrentCycleId(requireActivity())
+                binding.cycleID.text = "Cycle ID : ${EncryptedSharedPrefs.getCurrentCycleId(requireActivity())}"
                 Toast.makeText(requireActivity(), "Returned successfully", Toast.LENGTH_SHORT)
                     .show()
             } else {
@@ -133,7 +144,9 @@ class EmpHomeFragment : Fragment() {
             .addOnSuccessListener {
                 db.collection(CYCLE_FOLDER).document(scannedCycleId).update("allotted", "True")
                     .addOnSuccessListener {
+                        binding.cycleID.text = "Cycle ID : ${EncryptedSharedPrefs.getCurrentCycleId(requireActivity())}"
                         Toast.makeText(
+
                             requireActivity(), "Cycle allocated successfully", Toast.LENGTH_SHORT
                         ).show()
                     }.addOnFailureListener {
